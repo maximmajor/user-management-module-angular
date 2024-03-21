@@ -1,35 +1,39 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-list-all-users',
   templateUrl: './list-all-users.component.html',
-  styleUrl: './list-all-users.component.css'
+  styleUrls: ['./list-all-users.component.css'] // Corrected property name to styleUrls
 })
-export class ListAllUsersComponent implements OnInit{
-  users: any[] = []; // Replace with actual user data
+export class ListAllUsersComponent implements OnInit {
+  users: any[] = [];
   filteredUsers: any[] = [];
   startDate: string = '';
   endDate: string = '';
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    // Fetch users from backend or provide sample data
-    this.users = [
-      { firstName: 'John', lastName: 'Doe', phoneNumber: '1234567890', email: 'john@example.com', dateOfBirth: '2000-01-01' },
-      { firstName: 'Jane', lastName: 'Smith', phoneNumber: '9876543210', email: 'jane@example.com', dateOfBirth: '2005-01-01' },
-      // Add more users here
-    ];
-    this.filteredUsers = this.users;
+    this.userService.getUsers().subscribe(
+      (response: any) => { 
+        console.log('Users retrieved successfully:', response.users);
+        this.users = response.users; 
+        this.filteredUsers = this.users;
+      },
+      error => {
+        console.error('Error retrieving users:', error);
+      }
+    );
   }
 
   filterUsers(): void {
     this.filteredUsers = this.users.filter(user => {
-      const userDateOfBirth = new Date(user.dateOfBirth);
+      console.log(user.date_of_birth)
+      const userDateOfBirth = new Date(user.date_of_birth);
       const startDate = new Date(this.startDate);
       const endDate = new Date(this.endDate);
       return userDateOfBirth >= startDate && userDateOfBirth <= endDate;
     });
   }
-
 }

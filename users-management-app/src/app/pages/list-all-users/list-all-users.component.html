@@ -1,4 +1,17 @@
 <div class="container mt-4">
+    <div class="row mb-1">
+        <div class="col-1 d-flex justify-content-end mt-2">
+        </div>
+        <div class="col-10 d-flex justify-content-end mt-2">
+            <p class="text-success text-sm "><button class="border-0" routerLink="">Add New User </button></p>
+        </div>
+
+        <div class="col-1 d-flex justify-content-start">
+            <button class="btn  border-0 rounded  text-warning">
+                <p></p>
+            </button>
+        </div>
+    </div>
     <h2 class="text-center mb-4 text-muted">User Table Screen:</h2>
     <div class="row mb-3">
       <div class="col-md-6">
@@ -24,11 +37,11 @@
         </thead>
         <tbody>
           <tr *ngFor="let user of filteredUsers">
-            <td>{{ user.firstName }}</td>
-            <td>{{ user.lastName }}</td>
-            <td>{{ user.phoneNumber }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.phone_number }}</td>
             <td>{{ user.email }}</td>
-            <td>{{ user.dateOfBirth }}</td>
+            <td>{{ user.date_of_birth }}</td>
           </tr>
         </tbody>
       </table>
